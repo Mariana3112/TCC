@@ -27,7 +27,7 @@ for (j in 1:n_colunas){
 write.csv(cromo1,'C:/Mariana/UFSCar/TCC/Cromossomo1.csv')
 cromo1 = read.csv('C:/Mariana/UFSCar/TCC/Cromossomo1.xlxs')
 
-# Filtro das vari·veis com resposta em apenas uma categoria
+# Filtro das vari√°veis com resposta em apenas uma categoria
 cromo1 = Cromossomo1
 cromo1 = cromo1[,-1]
 tam1 = 0
@@ -55,7 +55,7 @@ for (i in 1:ncol(cromo1.2)){
 write.csv(cromo1.2,'C:/Mariana/UFSCar/TCC/Cromossomo1f.csv')
 cromo1f = read.csv('C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtrados/Cromossomo 1/Cromossomo1f.csv')
 
-# Dividindo o banco em Teste x ValidaÁ„o
+# Dividindo o banco em Teste x Valida√ß√£o
 library(stringi)
 library(caret)
 
@@ -63,7 +63,6 @@ indice = cromo1f[-698,1]
 cromof1 = cromo1f[-698,-1]
 divide <- createDataPartition(indice, p=0.7, list=FALSE)
 write.table(divide,'C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtrados/divide.csv', dec = ',', sep = ';')
-# ta errado (pegar do excel) divide = c(1	2	3	4	6	8	9	10	12	13	14	15	16	17	18	19	20	23	24	25	27	28	30	32	33	36	37	39	40	41	44	45	46	49	50	51	53	55	58	60	61	62	63	64	66	69	72	74	75	79	80	81	83	84	85	86	88	89	90	91	92	93	94	95	96	97	98	99	100	101	102	104	105	106	107	108	111	112	113	114	117	118	119	121	122	123	124	126	127	128	129	130	131	132	133	135	137	138	140	142	143	145	146	148	149	150	151	152	153	155	156	158	159	160	163	164	165	166	167	170	171	174	175	177	178	180	181	182	183	185	186	188	189	190	191	192	193	194	195	197	198	200	204	206	207	208	209	210	211	213	214	215	217	221	222	223	225	227	228	231	233	234	235	236	237	238	239	241	242	243	244	246	247	249	250	251	253	254	255	256	257	258	259	260	261	263	265	266	268	269	270	271	272	274	275	276	278	279	280	282	284	287	288	292	293	296	297	299	300	301	302	303	304	306	307	308	309	310	311	312	313	314	318	319	320	321	322	325	328	329	330	331	333	334	335	337	338	339	341	342	343	344	346	347	349	350	352	353	354	357	360	362	363	364	367	369	372	374	375	376	377	378	379	380	381	383	384	385	387	389	391	394	395	396	400	401	402	403	404	406	407	408	409	410	414	415	416	417	421	423	424	425	426	427	428	429	430	431	433	434	436	437	438	439	440	441	442	443	444	445	446	447	449	450	452	455	456	457	459	460	461	462	463	464	466	467	468	469	471	473	476	478	479	480	481	482	483	486	487	488	489	491	493	494	495	496	498	499	500	502	504	505	506	507	508	509	510	511	512	513	514	515	516	517	519	520	522	524	525	526	530	531	532	533	536	537	538	539	540	541	542	545	546	547	548	549	550	553	556	557	558	559	562	563	564	565	566	567	568	571	574	575	577	578	579	580	581	582	583	585	587	588	590	592	594	595	596	597	598	599	602	603	606	607	608	611	613	614	616	617	618	619	620	621	622	623	624	625	626	628	629	630	632	633	634	635	636	637	638	640	641	643	645	646	648	650	651	652	653	654	655	656	657	658	659	660	662	664	666	668	670	671	673	674	675	676	677	678	680	683	684	685	688	690	693	694	695	696	697)
 cromo1treino <- cromof1[divide, ]
 cromo1validacao = cromof1[-divide,]
 write.csv(cromo1treino,'C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtrados/Cromossomo 1/Cromossomo1Treino.csv')
@@ -71,7 +70,7 @@ write.csv(cromo1validacao,'C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtr
 
 ##### Modelos
 
-# 1™ Semente: 1
+# 1¬™ Semente: 1
 
 library(dplyr)
 library(glmnet)
@@ -92,7 +91,7 @@ y_test<-y[-index]
 
 xtr = as.matrix(X_train)
 ytr = y_train
-# cojunto validaÁ„o
+# cojunto valida√ß√£o
 xval = as.matrix(X_test)
 yval = y[-index]
 
@@ -128,21 +127,21 @@ mean((lasso.pred-yval)^2)
 
 lasso.coef  <- predict(lasso.mod, type = 'coefficients', s = bestlam)
 
-plot(lasso.coef, xlab = 'Ordem dos Par‚metros', ylab = "Valor estimado do Par‚metro",
-     main = "Par‚metros estimados", pch = 16, col = 'deeppink2' )
+plot(lasso.coef, xlab = 'Ordem dos Par√¢metros', ylab = "Valor estimado do Par√¢metro",
+     main = "Par√¢metros estimados", pch = 16, col = 'deeppink2' )
 
 pdf("C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtrados/Cromossomo 1/1aSemente - LASSO - 1.pdf")
 
-lasso = plot(lasso.coef, xlab = 'Ordem dos Par‚metros', ylab = "Valor estimado do Par‚metro",
-             main = "Par‚metros estimados", pch = 16, col = 'deeppink2' )
+lasso = plot(lasso.coef, xlab = 'Ordem dos Par√¢metros', ylab = "Valor estimado do Par√¢metro",
+             main = "Par√¢metros estimados", pch = 16, col = 'deeppink2' )
 dev.off()
 
 ###
 
 png("C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtrados/Cromossomo 1/1aSemente - LASSO - 1.png")
 
-lasso = plot(lasso.coef, xlab = 'Ordem dos Par‚metros', ylab = "Valor estimado do Par‚metro",
-             main = "Par‚metros estimados", pch = 16, col = 'deeppink2' )
+lasso = plot(lasso.coef, xlab = 'Ordem dos Par√¢metros', ylab = "Valor estimado do Par√¢metro",
+             main = "Par√¢metros estimados", pch = 16, col = 'deeppink2' )
 
 dev.off()
 seed1 = as.matrix(lasso.coef)
@@ -162,7 +161,7 @@ write.table(rf1, "C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtrados/Crom
 
 pdf("C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtrados/Cromossomo 1/1aSemente - RF - 1.pdf")
 
-rf = varImpPlot(ajuste, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4') 
 dev.off()
 
@@ -170,7 +169,7 @@ dev.off()
 
 png("C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtrados/Cromossomo 1/1aSemente - RF - 1.png")
 
-rf = varImpPlot(ajuste, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4') 
 dev.off()
 
@@ -390,7 +389,7 @@ selecionados_rf_validacao = cbind(AFFECTED,c1rf,c2rf,c3rf,c4rf,c5rf,c6rf,c7rf,c8
                                   c21rf,c22rf)
 write.table(selecionados_rf_validacao, "C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/selecionados_rf_validacao.csv",sep=';',dec=',')
 
-##### ValidaÁ„o
+##### Valida√ß√£o
 
 ### Variaveis selecionadas - Cromossomo 1
 cromo1Validacao = read.csv('C:/Mariana/UFSCar/TCC/Dados transformados/Dados filtrados/Cromossomo 1/Cromossomo1Validacao.csv')
@@ -654,7 +653,7 @@ lasso_glm$mu.coefficients
 rf_treino = read.csv("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/selecionados_rf.csv",sep=';',dec=',')
 rf_valid = selecionados_rf_validacao
 
-# 1™ Semente: 1
+# 1¬™ Semente: 1
 library(dplyr)
 library(glmnet)
 library(plotmo)
@@ -673,7 +672,7 @@ y_test<-y[-index]
 
 xtr = as.matrix(X_train)
 ytr = y_train
-# cojunto validaÁ„o
+# cojunto valida√ß√£o
 xval = as.matrix(X_test)
 yval = y[-index]
 
@@ -690,7 +689,7 @@ write.table(rf1, "C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/1
 
 pdf("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/1aSemente - RF - 1 - selecionadas.pdf")
 
-rf = varImpPlot(ajuste1, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste1, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4') 
 dev.off()
 
@@ -698,23 +697,23 @@ dev.off()
 
 png("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/1aSemente - RF - 1 - selecionadas.png")
 
-rf = varImpPlot(ajuste1, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste1, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4')
 dev.off()
 
-sqres_ajuste1 = sum((ajuste1$y-ajuste1$predicted)^2) # ResÌduos treino
+sqres_ajuste1 = sum((ajuste1$y-ajuste1$predicted)^2) # Res√≠duos treino
 
 # Validacao
 
 valid_ajuste1 = predict(ajuste1,rf_valid) # Aplicandeo o modelo
-sqres_ajuste1_valid = sum((rf_valid$AFFECTED-valid_ajuste1)^2) # ResÌduos validaÁ„o
+sqres_ajuste1_valid = sum((rf_valid$AFFECTED-valid_ajuste1)^2) # Res√≠duos valida√ß√£o
 
 
 
 rf_treino = read.csv("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/selecionados_rf.csv",sep=';',dec=',')
 rf_valid = selecionados_rf_validacao
 
-# 2™ Semente: 31
+# 2¬™ Semente: 31
 library(dplyr)
 library(glmnet)
 library(plotmo)
@@ -733,7 +732,7 @@ y_test<-y[-index]
 
 xtr = as.matrix(X_train)
 ytr = y_train
-# cojunto validaÁ„o
+# cojunto valida√ß√£o
 xval = as.matrix(X_test)
 yval = y[-index]
 
@@ -750,7 +749,7 @@ write.table(rf1, "C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/2
 
 pdf("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/2aSemente - RF - 31 - selecionadas.pdf")
 
-rf = varImpPlot(ajuste2, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste2, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4') 
 dev.off()
 
@@ -758,21 +757,21 @@ dev.off()
 
 png("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/2aSemente - RF - 31 - selecionadas.png")
 
-rf = varImpPlot(ajuste2, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste2, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4')
-sqres_ajuste2 = sum((ajuste2$y-ajuste2$predicted)^2) # ResÌduos treino
+sqres_ajuste2 = sum((ajuste2$y-ajuste2$predicted)^2) # Res√≠duos treino
 
 # Validacao
 
 valid_ajuste2 = predict(ajuste2,rf_valid) # Aplicandeo o modelo
-sqres_ajuste2_valid = sum((rf_valid$AFFECTED-valid_ajuste2)^2) # ResÌduos validaÁ„o
+sqres_ajuste2_valid = sum((rf_valid$AFFECTED-valid_ajuste2)^2) # Res√≠duos valida√ß√£o
 
 
 
 rf_treino = read.csv("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/selecionados_rf.csv",sep=';',dec=',')
 rf_valid = selecionados_rf_validacao
 
-# 3™ Semente: 13
+# 3¬™ Semente: 13
 library(dplyr)
 library(glmnet)
 library(plotmo)
@@ -791,7 +790,7 @@ y_test<-y[-index]
 
 xtr = as.matrix(X_train)
 ytr = y_train
-# cojunto validaÁ„o
+# cojunto valida√ß√£o
 xval = as.matrix(X_test)
 yval = y[-index]
 
@@ -808,7 +807,7 @@ write.table(rf1, "C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/3
 
 pdf("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/3aSemente - RF - 13 - selecionadas.pdf")
 
-rf = varImpPlot(ajuste3, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste3, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4') 
 dev.off()
 
@@ -816,21 +815,21 @@ dev.off()
 
 png("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/3aSemente - RF - 13 - selecionadas.png")
 
-rf = varImpPlot(ajuste3, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste3, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4')
-sqres_ajuste3 = sum((ajuste3$y-ajuste3$predicted)^2) # ResÌduos treino
+sqres_ajuste3 = sum((ajuste3$y-ajuste3$predicted)^2) # Res√≠duos treino
 
 # Validacao
 
 valid_ajuste3 = predict(ajuste3,rf_valid) # Aplicandeo o modelo
-sqres_ajuste3_valid = sum((rf_valid$AFFECTED-valid_ajuste3)^2) # ResÌduos validaÁ„o
+sqres_ajuste3_valid = sum((rf_valid$AFFECTED-valid_ajuste3)^2) # Res√≠duos valida√ß√£o
 
 
 
 rf_treino = read.csv("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/selecionados_rf.csv",sep=';',dec=',')
 rf_valid = selecionados_rf_validacao
 
-# 4™ Semente: 24
+# 4¬™ Semente: 24
 library(dplyr)
 library(glmnet)
 library(plotmo)
@@ -849,7 +848,7 @@ y_test<-y[-index]
 
 xtr = as.matrix(X_train)
 ytr = y_train
-# cojunto validaÁ„o
+# cojunto valida√ß√£o
 xval = as.matrix(X_test)
 yval = y[-index]
 
@@ -866,7 +865,7 @@ write.table(rf1, "C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/4
 
 pdf("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/4aSemente - RF - 24 - selecionadas.pdf")
 
-rf = varImpPlot(ajuste4, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste4, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4') 
 dev.off()
 
@@ -874,22 +873,22 @@ dev.off()
 
 png("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/4aSemente - RF - 24 - selecionadas.png")
 
-rf = varImpPlot(ajuste4, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste4, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4')
 
-sqres_ajuste4 = sum((ajuste4$y-ajuste4$predicted)^2) # ResÌduos treino
+sqres_ajuste4 = sum((ajuste4$y-ajuste4$predicted)^2) # Res√≠duos treino
 
 # Validacao
 
 valid_ajuste4 = predict(ajuste4,rf_valid) # Aplicandeo o modelo
-sqres_ajuste4_valid = sum((rf_valid$AFFECTED-valid_ajuste4)^2) # ResÌduos validaÁ„o
+sqres_ajuste4_valid = sum((rf_valid$AFFECTED-valid_ajuste4)^2) # Res√≠duos valida√ß√£o
 
 
 
 rf_treino = read.csv("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/selecionados_rf.csv",sep=';',dec=',')
 rf_valid = selecionados_rf_validacao
 
-# 5™ Semente: 12
+# 5¬™ Semente: 12
 library(dplyr)
 library(glmnet)
 library(plotmo)
@@ -908,7 +907,7 @@ y_test<-y[-index]
 
 xtr = as.matrix(X_train)
 ytr = y_train
-# cojunto validaÁ„o
+# cojunto valida√ß√£o
 xval = as.matrix(X_test)
 yval = y[-index]
 
@@ -925,7 +924,7 @@ write.table(rf1, "C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/5
 
 pdf("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/5aSemente - RF - 12 - selecionadas.pdf")
 
-rf = varImpPlot(ajuste5, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste5, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4') 
 dev.off()
 
@@ -933,15 +932,15 @@ dev.off()
 
 png("C:/Mariana/UFSCar/TCC/Dados transformados/Dados Selecionados/5aSemente - RF - 12 - selecionadas.png")
 
-rf = varImpPlot(ajuste5, main = "Ajuste via Florestas AleatÛrias",
+rf = varImpPlot(ajuste5, main = "Ajuste via Florestas Aleat√≥rias",
                 pch = 16, col = 'turquoise4')
 
-sqres_ajuste5 = sum((ajuste5$y-ajuste5$predicted)^2) # ResÌduos treino
+sqres_ajuste5 = sum((ajuste5$y-ajuste5$predicted)^2) # Res√≠duos treino
 
 # Validacao
 
 valid_ajuste5 = predict(ajuste5,rf_valid) # Aplicandeo o modelo
-sqres_ajuste5_valid = sum((rf_valid$AFFECTED-valid_ajuste5)^2) # ResÌduos validaÁ„o
+sqres_ajuste5_valid = sum((rf_valid$AFFECTED-valid_ajuste5)^2) # Res√≠duos valida√ß√£o
 
 ### RF + GLM
 library(gamlss)
